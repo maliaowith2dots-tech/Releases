@@ -4,22 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Malïao</title>
-<meta name="description" content="Watch the clip and choose your music service to listen to Malïao's new single.">
+<meta name="description" content="Countdown to NEONS and watch Malïao’s latest music videos.">
 
 <!-- CONFIG -->
 <script>
-  // Date de sortie
-  const RELEASE_DATE = "2025-11-07T00:00:00+01:00";
-  // Clip officiel (post-release)
-  const YT_ID = "9coxeNKwFvw";
-  // Trailer (pré-release)
-  const TRAILER_ID = "yJFd0rigpbA";
+  // Date de sortie de NEONS
+  const RELEASE_DATE = "2026-01-16T00:00:00+01:00";
 
-  // Banner texts
-  const ANNOUNCE_TEXT = "FRIDAY will be out on 7 Nov 2025 — join the list so you don’t miss it.";
-  const WELCOME_TEXT  = "FRIDAY is out! Watch the clip, or tap the pink banner to play it on your platform of choice. 👇";
+  // NEONS live (révélé à la sortie)
+  const NEONS_ID = "VQ-LJvpmmJ4";
 
-  // One link to all platforms
+  // Clip FRIDAY (toujours visible)
+  const FRIDAY_ID = "9coxeNKwFvw";
+
+  // Lien vers toutes les plateformes (à adapter si tu as un lien global)
   const HYPERFOLLOW  = "https://distrokid.com/hyperfollow/malao/friday";
 </script>
 
@@ -38,125 +36,105 @@
     --card: linear-gradient(180deg, rgba(34,27,20,0.75) 0%, rgba(18,15,12,0.62) 100%);
     --btn:#eef1f6; --btnText:#3b3f46; --shadow:0 18px 50px rgba(0,0,0,.22);
     --accent:#ffe27a;
-    --pink:#ff4fa3; /* cover pink */
+    --pink:#ff4fa3;
   }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);}
+
+  /* BG : pochette NEONS floutée */
   body::before{
     content:""; position:fixed; inset:0;
-    background:linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.62)),
-      url("https://raw.githubusercontent.com/maliaowith2dots-tech/Maliao/refs/heads/main/Cover%20V7.png") center/cover no-repeat;
-    filter:blur(28px) brightness(0.85); z-index:-1; transform:scale(1.08);
+    background:
+      linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.75)),
+      url("https://raw.githubusercontent.com/maliaowith2dots-tech/Releases/refs/heads/main/Neonscover2.png") center/cover no-repeat;
+    filter:blur(28px) brightness(0.9); z-index:-1; transform:scale(1.08);
   }
+
   .wrap{max-width:560px;margin:0 auto;padding:18px 18px 24px;backdrop-filter:blur(5px);}
 
-  .card{background:var(--card); border-radius:20px; backdrop-filter:blur(10px);
-        border:1px solid var(--line); box-shadow:0 8px 20px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,0.04); overflow:hidden;}
+  /* Bandeau plateformes (discret en haut) */
+  .platforms-bar{
+    max-width:560px;
+    margin:0 auto 10px;
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(0,0,0,.70);
+    border:1px solid rgba(255,255,255,.24);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    backdrop-filter:blur(10px);
+  }
+  .platforms-label{
+    font-size:13px;
+    color:#f5f5f5;
+    opacity:.85;
+  }
+  .platform-icon{
+    width:26px;
+    height:26px;
+    border-radius:8px;
+    overflow:hidden;
+    display:inline-block;
+  }
+  .platform-icon img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .platform-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:999px;
+    padding:3px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.18);
+    text-decoration:none;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    box-shadow:0 6px 16px rgba(0,0,0,.35);
+  }
+  .platform-link:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.46);
+    box-shadow:0 10px 24px rgba(0,0,0,.5);
+  }
+
+  .card{
+    background:var(--card); border-radius:20px; backdrop-filter:blur(10px);
+    border:1px solid var(--line); box-shadow:0 8px 20px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,0.04);
+    overflow:hidden; margin-bottom:14px;
+  }
   .card-header{text-align:center;padding:20px 20px 14px;}
 
-  .cover-btn{
-    position:relative; display:inline-grid; place-items:center;
-    width:168px; height:168px; border-radius:16px; overflow:hidden;
-    margin:0 auto 12px; border:0; background:transparent; cursor:zoom-in;
-    box-shadow:0 10px 28px rgba(0,0,0,.35);
-    touch-action:manipulation;
-    transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  .neons-cover{
+    width:168px; height:168px; border-radius:16px; object-fit:cover;
+    box-shadow:0 10px 28px rgba(0,0,0,.35); margin-bottom:12px;
   }
-  .cover-btn img{width:100%; height:100%; object-fit:cover; display:block; border-radius:16px;}
-  .cover-btn::before{
-    content:""; position:absolute; inset:0; border-radius:16px;
-    box-shadow:0 0 0 0 rgba(255,226,122,.22);
-    animation:cover-breath 3.6s ease-in-out infinite; pointer-events:none;
-  }
-  @keyframes cover-breath{0%,100%{ box-shadow:0 0 0 0 rgba(255,226,122,.20);} 50%{ box-shadow:0 0 0 10px rgba(255,226,122,.06);} }
-  .cover-btn::after{
-    content:"↗"; position:absolute; right:8px; bottom:8px;
-    width:22px; height:22px; display:grid; place-items:center;
-    font-size:12px; font-weight:800; color:#111; background:var(--accent); border-radius:999px;
-    box-shadow:0 4px 12px rgba(0,0,0,.25); animation:hint-bounce 2.4s ease-in-out infinite; opacity:.95; pointer-events:none;
-  }
-  @keyframes hint-bounce{0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-3px);} }
-
-  .zoom-hint{position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; opacity:0; transition:opacity .22s ease;}
-  .zoom-hint span{padding:6px 10px; border-radius:999px; background:var(--accent); color:#111; font-weight:800; font-size:12px; box-shadow:0 6px 18px rgba(0,0,0,.25);}
-
-  @media (hover:hover) and (pointer:fine)){
-    .cover-btn:hover{transform:translateY(-2px) scale(1.01) rotateX(2deg) rotateY(1.5deg); box-shadow:0 16px 40px rgba(0,0,0,.5); filter:saturate(1.02);}
-    .cover-btn:hover::after{opacity:0;}
-    .cover-btn:hover .zoom-hint, .cover-btn:focus-visible .zoom-hint{opacity:.95;}
-  }
-  .cover-btn:focus-visible{outline:2px solid var(--accent); outline-offset:8px; border-radius:18px;}
 
   .title{font-weight:800; font-size:18px; margin:2px 0 0; color:#fff;}
-  .subtitle{font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:#e9e9e9; opacity:.95; margin-top:2px;}
+  .subtitle{font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:#e9e9e9; opacity:.95; margin-top:4px;}
+  .tagline{font-size:14px; color:#f5f5f5; margin:10px auto 6px; max-width:360px; line-height:1.5;}
 
-  .cta-hint{
-    position:relative;
-    color:#fff; background:rgba(0,0,0,.78);
-    display:inline-flex; align-items:center; gap:10px;
-    font-size:13.5px; font-weight:900; padding:10px 14px; border-radius:999px; margin:12px auto 2px;
-    border:1px solid rgba(255,255,255,.25);
-    box-shadow:0 10px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
-    animation:nudge 1.8s ease-in-out infinite;
-  }
-  .cta-hint::after{
-    content:""; position:absolute; top:-8px; left:calc(50% - 7px);
-    border-width:0 7px 8px 7px; border-style:solid;
-    border-color:transparent transparent rgba(0,0,0,.78) transparent;
-    filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));
-    animation:pointUp 1.2s ease-in-out infinite;
-  }
-  .finger{font-size:16px; line-height:1; display:inline-block; transform-origin:bottom center; animation:finger 1.2s ease-in-out infinite;}
-  @keyframes finger{0%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-2px) rotate(-8deg);} 100%{transform:translateY(0) rotate(0);} }
-  @keyframes nudge{0%,100%{transform:translateY(0);} 50%{transform:translateY(-3px);} }
-  @keyframes pointUp{0%,100%{transform:translateY(0);} 50%{transform:translateY(-2px);} }
-
-  .news{
-    margin-top:12px; border-radius:18px;
-    background:rgba(0,0,0,.82); color:#fff;
-    border:1px solid rgba(255,255,255,.18); box-shadow:0 12px 30px rgba(0,0,0,.35);
-  }
-  .news .card-header{padding:14px 16px;}
-  .news .line{font-size:14px; font-weight:900; letter-spacing:.01em;}
-  .news .badge{
-    display:inline-block; margin-right:10px; padding:4px 8px; font-size:11px; font-weight:900; border-radius:999px;
-    background:var(--accent); color:#111; letter-spacing:.08em; text-transform:uppercase;
-  }
-
-  .countdown.card{ margin-top:14px; padding:14px; border-radius:18px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); }
+  .countdown.card{ margin:12px; padding:14px; border-radius:18px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); }
   .cgrid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
   .cunit{ text-align:center; padding:14px; border-radius:14px; background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.12); }
-  .cnum{ font-variant-numeric:tabular-nums; font-size:34px; font-weight:900; line-height:1; color:#fff; }
+  .cnum{ font-variant-numeric:tabular-nums; font-size:32px; font-weight:900; line-height:1; color:#fff; }
   .clab{ text-transform:uppercase; letter-spacing:.16em; font-size:11px; color:#d7d7d7; }
   @media (max-width:560px){ .cgrid{ grid-template-columns:repeat(2,1fr); } }
 
   .hidden{display:none !important;}
 
-  .form-wrap{margin:14px 0 4px; padding:18px 20px; border-radius:18px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); text-align:center; backdrop-filter:blur(8px);}
-  .form-wrap p{font-size:14px;color:#e9e9e9;margin:0 0 12px;}
-  .form{display:flex; gap:10px; justify-content:center; align-items:flex-start}
-  .form input[type="email"]{flex:1; padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(0,0,0,.35); color:#fff; font-size:14px; outline:none;}
-  .form input::placeholder{color:rgba(255,255,255,.6)}
-  .form button{padding:10px 16px;border-radius:999px;border:0;background:var(--accent);color:#111;font-weight:800;cursor:pointer;}
-  @media(max-width:560px){ .form{flex-direction:column;} .form button{width:100%;} }
-
-  .follow{margin-top:12px; padding:18px 18px 20px;}
-  .follow h3{margin:0 0 10px; color:#fff; font-size:16px; font-weight:900; text-align:center;}
-  .socials{display:flex; flex-direction:column; gap:10px;}
-  .sbtn{display:flex; align-items:center; justify-content:center; gap:10px; padding:12px 16px; border-radius:999px; text-decoration:none; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.35); color:#fff; font-weight:900; letter-spacing:.01em; font-size:15px; box-shadow:0 10px 24px rgba(0,0,0,.35); transition:transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;}
-  .sbtn:hover{transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.5); background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.55);}
-  .icon{width:22px;height:22px;flex:0 0 22px;display:inline-block}
-
-  .video{margin:16px 0 14px; border-radius:18px; overflow:hidden; box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.10);}
+  .video{margin:12px; border-radius:18px; overflow:hidden; box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.10);}
   .video iframe{width:100%; aspect-ratio:16/9; border:0; display:block;}
 
-  .brand{text-align:center; margin-top:18px; color:#ddd; font-size:14px; font-weight:600}
-
-  /* Floating pill -> one link to all platforms */
   .hf-wrap{ display:flex; justify-content:center; }
   .hf-fly{
     display:inline-flex; align-items:center; gap:10px;
-    margin:12px auto 6px; padding:10px 14px; border-radius:999px;
+    margin:12px auto 16px; padding:10px 14px; border-radius:999px;
     background:var(--pink); color:#fff; font-weight:900; font-size:14px;
     border:1px solid rgba(0,0,0,.05);
     text-decoration:none;
@@ -174,79 +152,119 @@
   @keyframes hf-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
   @keyframes hf-pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.45)}70%{box-shadow:0 0 0 10px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
 
-  /* LIGHTBOX (restored) */
-  .lightbox{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.68); backdrop-filter:blur(3px); z-index:50;}
-  .lightbox.open{display:flex}
-  .lb-content{position:relative; display:flex; gap:18px; width:min(960px,92vw); max-height:92vh; background:rgba(20,22,25,.92); border:1px solid rgba(255,255,255,.08); border-radius:20px; box-shadow:0 30px 100px rgba(0,0,0,.6); padding:16px; color:#fff;}
-  .lb-img{flex:1 1 55%; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:14px; background:rgba(255,255,255,.04);}
-  .lb-img img{width:100%; height:auto; max-height:calc(92vh - 56px); object-fit:contain; border-radius:12px;}
-  .lb-text{flex:1 1 45%; display:flex; flex-direction:column; min-width:0; padding:6px 6px 6px 2px; overflow:auto;}
-  .lb-text h3{margin:0 0 8px; font-size:20px; font-weight:900; letter-spacing:.02em;}
-  .lb-text p{margin:0 0 10px; line-height:1.55; color:#e7e7e7; font-size:14.5px;}
-  .lb-text .meta{margin-top:auto; opacity:.85; font-size:12.5px; color:#cfcfcf; border-top:1px solid rgba(255,255,255,.08); padding-top:10px;}
-  .lightbox .close{position:absolute; top:12px; right:12px; background:rgba(255,255,255,.92); color:#111; border:1px solid #e5e5e5; border-radius:999px; padding:8px 10px; font-weight:700; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.25);}
-  @media (max-width: 720px){ .lb-content{flex-direction:column; gap:12px; padding:14px;} .lb-img img{max-height:50vh;} }
+  .form-wrap{margin:14px 0 4px; padding:18px 20px; border-radius:18px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); text-align:center; backdrop-filter:blur(8px);}
+  .form-wrap p{font-size:14px;color:#e9e9e9;margin:0 0 12px;}
+  .form{display:flex; gap:10px; justify-content:center; align-items:flex-start}
+  .form input[type="email"]{flex:1; padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(0,0,0,.35); color:#fff; font-size:14px; outline:none;}
+  .form input::placeholder{color:rgba(255,255,255,.6)}
+  .form button{padding:10px 16px;border-radius:999px;border:0;background:var(--accent);color:#111;font-weight:800;cursor:pointer;}
+  @media(max-width:560px){ .form{flex-direction:column;} .form button{width:100%;} }
 
-  @media (prefers-reduced-motion: reduce){
-    .cover-btn, .cover-btn::before, .cover-btn::after { animation:none; transition:none; }
-    .cta-hint, .cta-hint::after, .finger{ animation:none; }
-    .hf-fly, .hf-fly .dot{ animation:none; }
-  }
+  .brand{text-align:center; margin-top:18px; color:#ddd; font-size:14px; font-weight:600}
+
+  .small-note{font-size:13px;color:#ddd;margin:6px 0 0;}
 </style>
 </head>
 <body>
+
+  <!-- Bandeau plateformes discret en haut -->
+  <nav class="platforms-bar" aria-label="Listen to Malïao">
+    <span class="platforms-label">Listen to Malïao:</span>
+    <a class="platform-link" href="https://open.spotify.com/artist/TON_ID_SPOTIFY" target="_blank" aria-label="Spotify">
+      <span class="platform-icon">
+        <img src="https://github.com/maliaowith2dots-tech/Releases/blob/main/http___gather.fandalism.com_hyperfollowicons-spotify.jpeg?raw=true" alt="Spotify">
+      </span>
+    </a>
+    <a class="platform-link" href="https://music.youtube.com/channel/TON_ID" target="_blank" aria-label="YouTube Music">
+      <span class="platform-icon">
+        <img src="https://github.com/maliaowith2dots-tech/Releases/blob/main/Youtubemusic.png?raw=true" alt="YouTube Music">
+      </span>
+    </a>
+    <a class="platform-link" href="https://www.deezer.com/fr/artist/TON_ID" target="_blank" aria-label="Deezer">
+      <span class="platform-icon">
+        <img src="https://github.com/maliaowith2dots-tech/Releases/blob/main/Deezer.jpeg?raw=true" alt="Deezer">
+      </span>
+    </a>
+  </nav>
+
   <main class="wrap">
 
-    <!-- ===== HERO ===== -->
-    <section class="card" aria-label="Hero">
+    <!-- ===== NEONS : compte à rebours + vidéo (post-release) ===== -->
+    <section class="card" aria-label="NEONS">
       <div class="card-header">
-        <button class="cover-btn" id="openCover" aria-label="Open the cover details" title="Open details">
-          <img src="https://raw.githubusercontent.com/maliaowith2dots-tech/Maliao/refs/heads/main/Cover%20V7.png" alt="Pochette du single" loading="lazy">
-          <div class="zoom-hint"><span>Tap to open</span></div>
-        </button>
-        <div class="title">Malïao</div>
-        <div class="subtitle">FRIDAY</div>
-        <div class="cta-hint" role="note">
-          <span class="finger" aria-hidden="true">☝</span>
-          <span><strong>Tap the cover</strong> for more</span>
-          <span class="finger" aria-hidden="true">☝</span>
+        <img class="neons-cover" src="https://raw.githubusercontent.com/maliaowith2dots-tech/Releases/refs/heads/main/Neonscover2.png" alt="Malïao — NEONS cover" loading="lazy">
+        <div class="title">NEONS</div>
+        <div class="subtitle neons-subtitle">New single · 16 Jan 2026</div>
+      
+
+      <!-- COUNTDOWN (pré-release) -->
+      <section id="countdownBlock" class="countdown card" aria-label="Countdown to NEONS">
+        <div class="cgrid">
+          <div class="cunit"><div id="cd" class="cnum">00</div><div class="clab">Days</div></div>
+          <div class="cunit"><div id="ch" class="cnum">00</div><div class="clab">Hours</div></div>
+          <div class="cunit"><div id="cm" class="cnum">00</div><div class="clab">Minutes</div></div>
+          <div class="cunit"><div id="cs" class="cnum">00</div><div class="clab">Seconds</div></div>
         </div>
+      </section>
+
+      <!-- NEONS LIVE (après la sortie) -->
+      <section id="neonsVideoBlock" class="video hidden" aria-label="NEONS live">
+        <iframe
+          id="neonsYt"
+          title="Malïao — NEONS (Live)"
+          src=""
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </section>
+
+      <!-- CTA streaming NEONS -->
+      <div id="neonsCta" class="hf-wrap hidden">
+        <a class="hf-fly"
+           href="https://distrokid.com/hyperfollow/malao/friday"
+           target="_blank" rel="noopener"
+           aria-label="Listen to NEONS and more on your preferred streaming platform">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Listen to NEONS on your favorite streaming platform</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
 
-    <!-- ===== NEWS ===== -->
-    <section id="announceBlock" class="news" aria-live="polite" aria-label="News">
+    <!-- ===== FRIDAY : clip déjà sorti ===== -->
+    <section class="card" aria-label="FRIDAY">
       <div class="card-header">
-        <span class="badge">News</span>
-        <span id="announceText" class="line"></span>
+        <div class="subtitle">Out now</div>
+        <div class="title">FRIDAY</div>
+        <p class="small-note">Watch the clip while you wait for NEONS.</p>
       </div>
-    </section>
+      <section class="video" aria-label="FRIDAY video">
+        <iframe
+          id="fridayYt"
+          title="Malïao — FRIDAY (Official Video)"
+          src="https://www.youtube-nocookie.com/embed/9coxeNKwFvw?rel=0&modestbranding=1"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </section>
 
-    <!-- ===== TRAILER (visible avant la sortie) ===== -->
-    <section id="trailerBlock" class="video" aria-label="Trailer">
-      <iframe
-        id="trailerYt"
-        title="Malïao — FRIDAY (Trailer)"
-        src=""
-        referrerpolicy="strict-origin-when-cross-origin"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    </section>
-
-    <!-- ===== COUNTDOWN ===== -->
-    <section id="countdownBlock" class="countdown card" aria-label="Countdown">
-      <div class="cgrid">
-        <div class="cunit"><div id="cd" class="cnum">00</div><div class="clab">Days</div></div>
-        <div class="cunit"><div id="ch" class="cnum">00</div><div class="clab">Hours</div></div>
-        <div class="cunit"><div id="cm" class="cnum">00</div><div class="clab">Minutes</div></div>
-        <div class="cunit"><div id="cs" class="cnum">00</div><div class="clab">Seconds</div></div>
+      <div class="hf-wrap">
+        <a class="hf-fly"
+           href="https://distrokid.com/hyperfollow/malao/friday"
+           target="_blank" rel="noopener"
+           aria-label="Listen to Malïao on your preferred streaming platform">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Listen to Malïao on all platforms</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
 
     <!-- ===== MAILING LIST ===== -->
     <section class="form-wrap card" aria-label="Join the list">
-      <p>Be the first to hear when it drops - join the list 👇</p>
+      <p>Be the first to hear the next drops – join the list 👇</p>
       <form id="joinForm" class="form"
         action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfY-uGloqACsaDQ4FrtxFkbmlqpo6cumsQ4nCwrQ1dUEt6Xsw/formResponse"
         method="POST" novalidate>
@@ -256,64 +274,12 @@
       <div id="email-error" style="color:#ff8a8a;font-size:12px;margin-top:8px;min-height:16px;"></div>
     </section>
 
-    <!-- ===== RELEASE (hidden pre-release) ===== -->
-    <div id="releaseBlock" class="hidden">
-      <section class="video" aria-label="Music Video">
-        <iframe id="yt" title="Malïao — FRIDAY"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen></iframe>
-      </section>
-
-      <!-- ONE CLEAR CTA -->
-      <div class="hf-wrap">
-        <a id="hyperFly" class="hf-fly"
-           href="https://distrokid.com/hyperfollow/malao/friday"
-           target="_blank" rel="noopener"
-           aria-label="Listen to FRIDAY on your preferred streaming platform">
-          <span class="dot" aria-hidden="true"></span>
-          <span>TAP HERE to Listen to FRIDAY on your favorite streaming platform</span>
-          <span class="arrow" aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </div>
-
     <div class="brand">© <span id="y"></span> MALÏAO & HOMEMAD. PROD</div>
   </main>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Pochette agrandie">
-    <div class="lb-content" role="document">
-      <button class="close" id="closeLb" aria-label="Fermer (Esc)">×</button>
-      <div class="lb-img">
-        <img src="https://raw.githubusercontent.com/maliaowith2dots-tech/Maliao/refs/heads/main/Cover%20V7.png" alt="Pochette du single agrandie">
-      </div>
-      <aside class="lb-text">
-        <h3>About FRIDAY</h3>
-        <p><strong>FRIDAY</strong> is a song I wrote the lyrics for while recording it. So it came out as honestly and genuinely as it came to me at the time.</p>
-        <p>For the beat, I sampled an old song I made back when I was living in Beijing during lockdown. In a room on the 20th floor with a huge circular window, with a view of a highway and other buildings, surrounded by millions, but all in our boxes, paranoid of each other.</p>
-        <p>I must say, it was great for introspection, video games and music.</p>
-        <p>I hope you'll enjoy it.</p>
-        <img src="https://raw.githubusercontent.com/maliaowith2dots-tech/FRIDAY/refs/heads/main/Beijingstudio.png" alt="Beijing Studio circular window" class="about-img">
-        <div class="meta">Written by Malïao & produced by HOMEMAD. PROD · Recorded between Beijing & Paris · 2018/2025</div>
-      </aside>
-    </div>
-  </div>
 
 <script>
   // Footer year
   document.getElementById('y').textContent = new Date().getFullYear();
-
-  // Lightbox
-  const openBtn = document.getElementById('openCover');
-  const lb = document.getElementById('lightbox');
-  const closeBtn = document.getElementById('closeLb');
-  function openLightbox(){ lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=>closeBtn.focus(),0); }
-  function closeLightbox(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; openBtn && openBtn.focus(); }
-  openBtn && openBtn.addEventListener('click', openLightbox);
-  closeBtn.addEventListener('click', closeLightbox);
-  lb.addEventListener('click', e=>{ if(e.target===lb) closeLightbox(); });
-  window.addEventListener('keydown', e=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLightbox(); });
 
   // Inline mailing form
   const jf = document.getElementById('joinForm');
@@ -324,7 +290,12 @@
   jf.addEventListener('submit', async e=>{
     e.preventDefault();
     const v = (email.value || '').trim();
-    if(!isValidEmail(v)){ err.textContent='Invalid email address. Example: name@example.com'; email.focus(); return; }
+    if(!isValidEmail(v)){
+      err.style.color = '#ff8a8a';
+      err.textContent='Invalid email address. Example: name@example.com';
+      email.focus();
+      return;
+    }
     submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
     try{
       const fd = new FormData(); fd.append('entry.649502797', v);
@@ -338,80 +309,60 @@
     }
   });
 
-  // Countdown → Release
+  // Countdown NEONS
   const targetTs = new Date(RELEASE_DATE).getTime();
   const elCD = document.getElementById('countdownBlock');
-  const elRB = document.getElementById('releaseBlock');
-  const elAnnounce = document.getElementById('announceBlock');
-  const elAnnounceText = document.getElementById('announceText');
+  const neonsVideoBlock = document.getElementById('neonsVideoBlock');
+  const neonsIframe = document.getElementById('neonsYt');
+  const neonsCta = document.getElementById('neonsCta');
+  const neonsSubtitle = document.querySelector('.neons-subtitle');
 
-  // Trailer elements
-  const trailerSection = document.getElementById('trailerBlock');
-  const trailerIframe = document.getElementById('trailerYt');
-
-  if (elAnnounceText) elAnnounceText.textContent = ANNOUNCE_TEXT;
-
-  // Lazy set trailer src only if pre-release
-  if (Date.now() < targetTs && trailerIframe) {
-    trailerIframe.src = `https://www.youtube-nocookie.com/embed/${TRAILER_ID}?rel=0&modestbranding=1`;
-  } else if (trailerSection) {
-    trailerSection.classList.add('hidden');
-  }
+  function pad(n){ return String(n).padStart(2,'0'); }
 
   function showReleased(){
-    if (elAnnounceText) elAnnounceText.textContent = WELCOME_TEXT;
+    if (neonsSubtitle) {
+      neonsSubtitle.textContent = 'NEONS · out now';
+    }
+    if (elCD) elCD.classList.add('hidden');
 
-    if (elAnnounce && elRB) elAnnounce.insertAdjacentElement('afterend', elRB);
+    if (neonsVideoBlock && neonsIframe) {
+      neonsVideoBlock.classList.remove('hidden');
+      if (!neonsIframe.src) {
+        neonsIframe.src = `https://www.youtube-nocookie.com/embed/${NEONS_ID}?rel=0&modestbranding=1`;
+      }
+    }
 
-    // Hide countdown
-    elCD.classList.add('hidden');
-
-    // Stop & hide trailer
-    if (trailerIframe) { trailerIframe.src = ""; }
-    if (trailerSection) { trailerSection.classList.add('hidden'); }
-
-    // Show release block (clip officiel)
-    elRB.classList.remove('hidden');
-
-    const yt = document.getElementById('yt');
-    if (yt && !yt.src){
-      yt.src = `https://www.youtube-nocookie.com/embed/${YT_ID}?rel=0&modestbranding=1`;
-      setTimeout(() => {
-        try {
-          if (!yt.contentWindow) {
-            const wrap = yt.parentElement;
-            const a = document.createElement('a');
-            a.href = `https://www.youtube.com/watch?v=${YT_ID}`;
-            a.target = "_blank"; a.rel = "noopener";
-            a.style.display = "block"; a.style.borderRadius = "14px"; a.style.overflow = "hidden";
-            const holder = document.createElement('div'); holder.style.position = "relative";
-            const img = document.createElement('img'); img.src = `https://img.youtube.com/vi/${YT_ID}/hqdefault.jpg`;
-            img.alt="Watch on YouTube"; img.style.width="100%"; img.style.display="block";
-            const badge = document.createElement('div'); badge.textContent="Watch on YouTube";
-            Object.assign(badge.style,{position:"absolute",bottom:"10px",right:"10px",padding:"8px 12px",borderRadius:"999px",background:"rgba(255,255,255,.9)",color:"#111",fontWeight:"800",fontSize:"12px"});
-            holder.appendChild(img); holder.appendChild(badge);
-            wrap.replaceChild(a, yt); a.appendChild(holder);
-          }
-        } catch (e) {}
-      }, 1200);
+    if (neonsCta) {
+      neonsCta.classList.remove('hidden');
     }
   }
 
-  function pad(n){ return String(n).padStart(2,'0'); }
   function tick(){
     const diff = targetTs - Date.now();
     if(diff <= 0){ showReleased(); return; }
     const s = Math.floor(diff/1000);
-    const d = Math.floor(s/86400), h = Math.floor((s%86400)/3600), m = Math.floor((s%3600)/60), ss = s%60;
+    const d = Math.floor(s/86400),
+          h = Math.floor((s%86400)/3600),
+          m = Math.floor((s%3600)/60),
+          ss = s%60;
     document.getElementById('cd').textContent = pad(d);
     document.getElementById('ch').textContent = pad(h);
     document.getElementById('cm').textContent = pad(m);
     document.getElementById('cs').textContent = pad(ss);
   }
+
   tick();
   if(Date.now() < targetTs){
-    const t = setInterval(()=>{ tick(); if(Date.now() >= targetTs){ clearInterval(t); showReleased(); } }, 1000);
-  } else { showReleased(); }
+    const t = setInterval(()=>{
+      tick();
+      if(Date.now() >= targetTs){
+        clearInterval(t);
+        showReleased();
+      }
+    }, 1000);
+  } else {
+    showReleased();
+  }
 </script>
 </body>
 </html>
