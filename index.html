@@ -22,6 +22,9 @@
   // SoundCloud URLs (source of truth for listening)
   const SC_NEONS  = "https://soundcloud.com/brain-wreck/neons";
   const SC_FRIDAY = "https://soundcloud.com/brain-wreck/friday";
+
+  // Hero avatar image
+  const HERO_AVATAR = "https://github.com/maliaowith2dots-tech/Releases/blob/main/516500564_18068776247016019_4800982588283818284_n.jpg?raw=true";
 </script>
 
 <!-- Google tag (gtag.js) -->
@@ -81,18 +84,26 @@
     text-transform:uppercase;
     color:rgba(255,255,255,.72);
   }
-  .hero h1{
-    margin:10px 0 6px;
-    font-size:22px;
-    font-weight:900;
-    letter-spacing:.02em;
+
+  /* NEW: hero avatar (replaces the yellow heart) */
+  .hero-avatar{
+    width:84px;
+    height:84px;
+    border-radius:999px;
+    object-fit:cover;
+    display:block;
+    margin:12px auto 10px;
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow: 0 14px 42px rgba(0,0,0,.45);
   }
+
   .hero p{
     margin:0;
     color:var(--muted);
     font-size:13px;
     line-height:1.45;
   }
+  .hero p + p{ margin-top:6px; }
 
   .tabs{
     display:grid;
@@ -142,16 +153,6 @@
   .tmeta{flex:1 1 auto; text-align:left;}
   .tmeta .name{font-weight:950;font-size:16px;margin:0 0 2px}
   .tmeta .sub{color:var(--muted);font-size:12px;margin:0}
-  .pill{
-    font-size:11px; font-weight:900; letter-spacing:.08em;
-    text-transform:uppercase;
-    padding:8px 10px;
-    border-radius:999px;
-    border:1px solid var(--line);
-    background:rgba(0,0,0,.22);
-    color:rgba(255,255,255,.9);
-    white-space:nowrap;
-  }
 
   /* SoundCloud embed wrapper */
   .embed{
@@ -221,8 +222,12 @@
   <section class="card" aria-label="Malïao landing">
     <div class="hero">
       <div class="artist">MALÏAO</div>
-      <h1>💛</h1>
-      <p>Happy to see you here.</p>  <p> Keep your shoes on or take them off, we’re not fancy.</p>
+
+      <!-- REPLACED: yellow heart with circular image -->
+      <img class="hero-avatar" id="heroAvatar" alt="Malïao" loading="lazy">
+
+      <p>Happy to see you here.</p>
+      <p>Keep your shoes on or take them off, we’re not fancy.</p>
     </div>
 
     <div class="tabs" role="tablist" aria-label="Listen / Watch">
@@ -245,7 +250,6 @@
             <p class="name">NEONS</p>
             <p class="sub">Single • Out now</p>
           </div>
-          
         </div>
 
         <div class="embed" aria-label="SoundCloud player NEONS">
@@ -266,12 +270,11 @@
       <!-- FRIDAY -->
       <section class="track" aria-label="FRIDAY (listen)">
         <div class="trackHead">
-          <img class="cover" src="https://raw.githubusercontent.com/maliaowith2dots-tech/Releases/refs/heads/main/Neonscover2.png" alt="FRIDAY artwork" loading="lazy">
+          <img class="cover" src="https://github.com/maliaowith2dots-tech/Releases/blob/main/Cover%20V7.png?raw=true" alt="FRIDAY artwork" loading="lazy">
           <div class="tmeta">
             <p class="name">FRIDAY</p>
             <p class="sub">Single</p>
           </div>
-         
         </div>
 
         <div class="embed" aria-label="SoundCloud player FRIDAY">
@@ -302,7 +305,6 @@
             <p class="name">NEONS</p>
             <p class="sub">Live session</p>
           </div>
-          <span class="pill">Video</span>
         </div>
 
         <div class="video">
@@ -324,7 +326,6 @@
             <p class="name">FRIDAY</p>
             <p class="sub">Music clip</p>
           </div>
-          <span class="pill">Video</span>
         </div>
 
         <div class="video">
@@ -351,6 +352,9 @@
   // Footer year
   document.getElementById('y').textContent = new Date().getFullYear();
 
+  // Hero avatar
+  document.getElementById('heroAvatar').src = HERO_AVATAR;
+
   // Hyperfollow links
   document.getElementById('hfNeons').href  = HYPERFOLLOW_NEONS;
   document.getElementById('hfFriday').href = HYPERFOLLOW_FRIDAY;
@@ -373,7 +377,6 @@
     tabWatch.setAttribute('aria-selected','false');
     listenSection.classList.remove('hidden');
     watchSection.classList.add('hidden');
-    // lightweight tracking
     try{ gtag('event','tab_listen',{event_category:'UX'}); }catch(e){}
   }
   function showWatch(){
